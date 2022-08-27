@@ -19,7 +19,10 @@
   "homepage": "https://github.com/toanlpfx16432/NJS101x_01#readme",
   "dependencies": {
     "body-parser": "^1.20.0",
+    "ejs": "^3.1.8",
     "express": "^4.18.1",
-    "nodemon": "^2.0.19"
+    "express-handlebars": "^6.0.6",
+    "nodemon": "^2.0.19",
+    "pug": "^3.0.2"
   }
 }
