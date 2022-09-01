@@ -1,7 +1,6 @@
 const path = require('path');
 
 const express = require('express');
-
 const bodyParser = require('body-parser');
 
 const errorController = require('./controllers/error');
@@ -47,7 +46,7 @@ sequelize
     })
     .then(user => {
         if(!user){
-            return User.create({name: 'Thinh', email: 'test@gmail.com'});
+            return User.create({name: 'Toan', email: 'test@gmail.com'});
         }
         return user;
     })
