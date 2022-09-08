@@ -16,7 +16,8 @@ const store = new MongoDBStore({
   uri: MONGODB_URI,
   collection: 'sessions'
 });
-app.set('view engine', 'ejs');  
+
+app.set('view engine', 'ejs');
 app.set('views', 'views');
 
 const adminRoutes = require('./routes/admin');
@@ -25,18 +26,25 @@ const authRoutes = require('./routes/auth');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(session({secret: 'my secret', resave: false, saveUninitialized: false, store: store}));
+app.use(
+  session({
+    secret: 'my secret',
+    resave: false,
+    saveUninitialized: false,
+    store: store
+  })
+);
 
 app.use((req, res, next) => {
   if (!req.session.user) {
-   return next();
+    return next();
   }
   User.findById(req.session.user._id)
-  .then(user=>{
-    req.user = user;
-    next();
-  })
-  .catch(err => console.log(err));
+    .then(user => {
+      req.user = user;
+      next();
+    })
+    .catch(err => console.log(err));
 });
 
 app.use('/admin', adminRoutes);
@@ -51,7 +59,7 @@ mongoose
     User.findOne().then(user => {
       if (!user) {
         const user = new User({
-          name: 'toan',
+          name: 'Toan',
           email: 'toan@test.com',
           cart: {
             items: []
