@@ -111,7 +111,8 @@ form {
 
 .mobile-nav__item a,
 .mobile-nav__item button {
-  font: inherit;  text-decoration: none;
+  font: inherit;
+  text-decoration: none;
   color: black;
   font-size: 1.5rem;
   padding: 0.5rem 2rem;
@@ -124,7 +125,8 @@ form {
 .mobile-nav__item a:hover,
 .mobile-nav__item a.active,
 .mobile-nav__item button:hover,
-.mobile-nav__item button:active {  background: #00695c;
+.mobile-nav__item button:active {
+  background: #00695c;
   color: white;
   border-radius: 3px;
 }
