@@ -41,7 +41,8 @@ exports.getSignup = (req, res, next) => {
       email: '',
       password: '',
       confirmPassword: ''
-    }  
+    },
+    validationErrors: []
   });
 };
 
@@ -95,7 +96,8 @@ if (!errors.isEmpty()) {
       email: email,
       password: password,
       confirmPassword: req.body.confirmPassword
-    }  
+    },
+    validationErrors: errors.array()  
   });
 }
 bcrypt
