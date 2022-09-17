@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
-const Product = require('../models/product');
+
 const { validationResult } = require('express-validator/check');
+
+const Product = require('../models/product');
 
 exports.getAddProduct = (req, res, next) => {
   res.render('admin/edit-product', {
@@ -34,6 +36,7 @@ exports.postAddProduct = (req, res, next) => {
     });
   }
   const errors = validationResult(req);
+
   if (!errors.isEmpty()) {
     console.log(errors.array());
     return res.status(422).render('admin/edit-product', {
@@ -41,7 +44,12 @@ exports.postAddProduct = (req, res, next) => {
       pageTitle: 'Add Product',
       editing: false,
       hasError: true,
-      product: {title: title, imageUrl: imageUrl, price: price, description: description},
+      product: {
+        title: title, 
+        imageUrl: imageUrl, 
+        price: price, 
+        description: description
+      },
       errorMessage: errors.array()[0].msg,
       validationErrors: errors.array()
     });
@@ -68,7 +76,12 @@ exports.postAddProduct = (req, res, next) => {
       //   pageTitle: 'Add Product',
       //   editing: false,
       //   hasError: true,
-      //   product: {title: title, imageUrl: imageUrl, price: price, description: description},
+      //   product: {
+      //   title: title, 
+      //   imageUrl: imageUrl, 
+      //   price: price, 
+      //   description: description
+      //   },
       //   errorMessage: 'Database operation failed, please try again',
       //   validationErrors: []
       // });
@@ -113,18 +126,26 @@ exports.postEditProduct = (req, res, next) => {
   const updatedPrice = req.body.price;
   const image = req.file;
   const updatedDesc = req.body.description;
+
   const errors = validationResult(req);
+
   if (!errors.isEmpty()) {
     return res.status(422).render('admin/edit-product', {
       path: '/admin/edit-product',
       pageTitle: 'Edit Product',
       editing: false,
       hasError: true,
-      product: {title: updatedTitle, price: updatedPrice, description: updatedDesc, _id: prodId},
+      product: {
+        title: updatedTitle, 
+        price: updatedPrice, 
+        description: updatedDesc, 
+        _id: prodId
+      },
       errorMessage: errors.array()[0].msg,
       validationErrors: errors.array()
     });
   }
+
   Product.findById(prodId)
     .then(product => {
       if (product.userId.toString() !== req.user._id.toString()) {
@@ -136,6 +157,7 @@ exports.postEditProduct = (req, res, next) => {
       if (image) {
         product.imageUrl = image.path;
       }
+      
       return product.save().then(result => {
         console.log('UPDATED PRODUCT!');
         res.redirect('/admin/products');
